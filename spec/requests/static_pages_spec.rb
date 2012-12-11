@@ -58,5 +58,10 @@ describe "Static pages" do
       page.should have_selector('title',
                     :text => "#{base_title} | Contact")
     end
+
+    it "should have the p 'Contact Ruby on Rails'" do
+      visit '/static_pages/contact'
+      page.should have_selector('p', :text => 'Contact Ruby on Rails')
+    end
   end
 end
