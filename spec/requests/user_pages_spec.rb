@@ -46,6 +46,12 @@ describe "UserPages" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
+
+        describe "try to delete self" do
+          it "should not change user count" do
+            expect { delete user_path(admin) }.not_to change(User, :count).by(-1)
+          end 
+        end
       end
     end
   end
