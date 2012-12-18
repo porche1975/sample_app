@@ -54,6 +54,18 @@ describe "UserPages" do
         end
       end
     end
+
+    describe "micropost delete links" do
+      let(:other_user) { FactoryGirl.create(:user) }
+      let!(:m1) { FactoryGirl.create(:micropost, user: other_user, content: "Foo") }
+
+      before do
+        sign_in user
+        visit user_path(other_user)
+      end
+
+      it { should_not have_link('delete', href: microposts_path(m1)) }
+    end
   end
 
   describe "signup page" do
