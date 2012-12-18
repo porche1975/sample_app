@@ -1,7 +1,23 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.text_area :content, { id: "micropost_content", placeholder: "Compose new micropost...", maxlength: "140" } %>
   </div>
+  <div><span id="chars_remaining">140 characters</span> remaining.</div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#micropost_content").keyup(function(e) {
+      
+        var charss = 140 - $("#micropost_content").val().length;
+        var label = charss + " character";
+        if (charss != 1) label += "s";
+
+        $("#chars_remaining").html(label)
+      
+    })
+  })
+</script>
